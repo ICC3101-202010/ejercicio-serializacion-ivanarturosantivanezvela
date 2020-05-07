@@ -17,7 +17,7 @@ namespace Serializacion
             List<Persona> personas = new List<Persona>();
             while (!accion)
             {
-                Console.WriteLine("Eliga su opcion: 1)Crear persona   2)Ver personas    3)Guardar persona   4) Cargar persona ");
+                Console.WriteLine("Eliga su opcion: 1)Crear persona  2)Ver personas 3)Guardar persona 4) Cargar persona 5) Salir " );
                 string opcion = Console.ReadLine();
                 if (opcion == "1")
                 {
@@ -33,6 +33,11 @@ namespace Serializacion
                     IFormatter formatter = new BinaryFormatter();
                     Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
                     formatter.Serialize(stream, persona);
+                    foreach (Persona data in personas)
+                    {
+                        formatter.Serialize(stream, data);
+                    }
+                    
                     stream.Close();
                     continue;
 
@@ -68,6 +73,10 @@ namespace Serializacion
 
 
                     Console.WriteLine("Guardado");
+                    IFormatter formatter = new BinaryFormatter();
+                    Stream stream = new FileStream("Personas.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+                    
+
 
 
                 }
@@ -76,6 +85,12 @@ namespace Serializacion
 
                     Console.WriteLine("Cargada");
                 }
+                if (opcion == "5")
+                {
+                    accion = true;
+                    Console.WriteLine("fin");
+
+                }
 
 
 
@@ -83,6 +98,7 @@ namespace Serializacion
 
 
             }
+        
 
 
 
